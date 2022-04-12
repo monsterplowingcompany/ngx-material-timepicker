@@ -1,4 +1,4 @@
-import { DateTime, LocaleOptions } from 'luxon';
+import { DateTime, LocaleOptions, NumberingSystem } from 'luxon';
 
 import { TimeFormat } from '../models/time-format.enum';
 import { TimePeriod } from '../models/time-period.enum';
@@ -9,7 +9,7 @@ import { TimeOptions } from '../models/time-options.interface';
 export class TimeAdapter {
     static DEFAULT_FORMAT = 12;
     static DEFAULT_LOCALE = 'en-US';
-    static DEFAULT_NUMBERING_SYSTEM = 'latn';
+    static DEFAULT_NUMBERING_SYSTEM:NumberingSystem = 'latn';
 
     static parseTime(time: string, opts: TimeOptions): DateTime {
         const {numberingSystem, locale} = TimeAdapter.getLocaleOptionsByTime(time, opts);
@@ -27,9 +27,11 @@ export class TimeAdapter {
         const parsedTime = TimeAdapter.parseTime(time, opts).setLocale(TimeAdapter.DEFAULT_LOCALE);
 
         if (format !== 24) {
+       
             return parsedTime.toLocaleString({
                 ...DateTime.TIME_SIMPLE,
                 hour12: format !== 24,
+                      //@ts-ignore
                 numberingSystem: TimeAdapter.DEFAULT_NUMBERING_SYSTEM
             }).replace(/\u200E/g, '');
         }
@@ -105,7 +107,7 @@ export class TimeAdapter {
     }
 
     private static getLocaleOptionsByTime(time: string, opts: TimeOptions): LocaleOptions {
-        const {numberingSystem, locale} = DateTime.local().setLocale(opts.locale).resolvedLocaleOpts();
+        const {numberingSystem, locale} = DateTime.local().setLocale(opts.locale).resolvedLocaleOptions();
         const localeConfig: LocaleOptions = {numberingSystem: numberingSystem, locale};
         const defaultConfig: LocaleOptions = {numberingSystem: TimeAdapter.DEFAULT_NUMBERING_SYSTEM, locale: TimeAdapter.DEFAULT_LOCALE};
 

@@ -1,22 +1,26 @@
 /* tslint:disable */
-import { DateTime } from 'luxon';
+import { DateTime, DateTimeUnit } from 'luxon';
 
 
 export function isSameOrAfter(time: DateTime, compareWith: DateTime, unit: 'hours' | 'minutes' = 'minutes'): boolean {
     if (unit === 'hours') {
+
         return time.hour >= compareWith.hour;
     }
     if (unit === 'minutes') {
-        return time.hasSame(compareWith, unit) || time.valueOf() > compareWith.valueOf();
+         let u:DateTimeUnit = 'minute'
+        return time.hasSame(compareWith, u) || time.valueOf() > compareWith.valueOf();
     }
 }
 
 export function isSameOrBefore(time: DateTime, compareWith: DateTime, unit: 'hours' | 'minutes' = 'minutes'): boolean {
     if (unit === 'hours') {
+  
         return time.hour <= compareWith.hour;
     }
     if (unit === 'minutes') {
-        return time.hasSame(compareWith, unit) || time.valueOf() <= compareWith.valueOf();
+     let u:DateTimeUnit = 'minute'
+        return time.hasSame(compareWith, u) || time.valueOf() <= compareWith.valueOf();
     }
 }
 

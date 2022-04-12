@@ -37,13 +37,14 @@
         "codecov": "codecov",
         "packagr": "ng-packagr -p ng-package.json",
         "publish": "run-s packagr && npm publish dist",
-        "gh-publish": "ng build --prod --base-href ngx-material-timepicker && gh-pages -d dist"
+        "gh-publish": "ng build --prod --base-href ngx-material-timepicker && gh-pages -d dist",
+        "git-publish":"publish-to-git --remote git@github.com:monsterplowingcompany/ngx-timepicker-pkg.git"
     },
     "types": ".src/app/material-timepicker/index.d.ts",
     "private": false,
     "dependencies": {
-        "@types/luxon": "1.11.1",
-        "luxon": "1.24.0"
+        "@types/luxon": "2.3.1",
+        "luxon": "2.3.1"
     },
     "devDependencies": {
         "@angular-devkit/build-angular": "^0.800.3",
@@ -80,6 +81,7 @@
         "node-sass": "^4.14.1",
         "npm-run-all": "^4.1.3",
         "protractor": "^5.4.2",
+        "publish-to-git": "^1.1.9",
         "rxjs": "^6.5.2",
         "travis-deploy-once": "^5.0.0",
         "ts-node": "~4.1.0",
